@@ -7,7 +7,12 @@
 <body>
 
 <h1>
-    Hello World
+    <c:forEach items="${sp}" var="i">
+        <p>${i.sanPham.ma}</p>
+        <p>${i.sanPham.ten}</p>
+        <p>${i.sanPham.trangThai}</p>
+
+    </c:forEach>
 </h1>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html>
 <head></head>
 <body>
-<h1>Quan ly san pham</h1>
+<h1>Quan ly khach hang</h1>
 <form method="POST" action="/khach-hang/store">
 
     <div class="mb-3">

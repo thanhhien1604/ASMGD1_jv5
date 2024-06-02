@@ -39,7 +39,7 @@
                         <td>${i.index + 1}</td>
                         <td>${item.id}</td>
                         <td>${item.idHoaDon}</td>
-                        <td>${item.idSanPhamChiTiet}</td>
+                        <td>${item.sanPhamChiTiet.maSPCT}</td>
                         <td>${item.soLuong}</td>
                         <td>${item.donGia}</td>
                         <td>${item.trangThai == 1 ? "Đang hoạt động" : "Ngừng hoạt động"}</td>

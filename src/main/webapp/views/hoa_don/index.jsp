@@ -37,8 +37,8 @@
                     <tr>
                         <td>${i.index + 1}</td>
                         <td>${item.id}</td>
-                        <td>${item.idNhanVien}</td>
-                        <td>${item.idKhachHang}</td>
+                        <td>${item.nhanVien.ten}</td>
+                        <td>${item.khachHang.ten}</td>
                         <td>${item.ngayMuaHang}</td>
                         <td>${item.trangThai == 1 ? "Đang hoạt động" : "Ngừng hoạt động"}</td>
                         <td>

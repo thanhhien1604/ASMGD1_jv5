@@ -2,7 +2,9 @@ package org.example.demobuoi1.controllers;
 
 import jakarta.validation.Valid;
 import org.example.demobuoi1.entities.KichThuoc;
-import org.example.demobuoi1.repositories.asm1.KichThuocRepository;
+import org.example.demobuoi1.entities.MauSac;
+import org.example.demobuoi1.repositories.asm2.KichThuocRepository2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,42 +22,25 @@ import java.util.Map;
 @RequestMapping("/kich-thuoc")
 
 public class KichThuocController {
-    private KichThuocRepository kichThuocRepository;
-    public KichThuocController() {
-        this.kichThuocRepository = new KichThuocRepository();
-    }
+    @Autowired
+    private KichThuocRepository2 kichThuocRepository;
 
-    @GetMapping("/index")
-    public String index(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-        int pageSize = 2;
-        Pageable pageable = PageRequest.of(page, pageSize);
-        Page<KichThuoc> colorPage = kichThuocRepository.findAllPage(pageable);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", colorPage.getTotalPages());
-        model.addAttribute("totalItems", colorPage.getTotalElements());
-        model.addAttribute("data", colorPage.getContent());
-        return "kich_thuoc/index";
-    }
+   @GetMapping("/index")
+   public String index(Model model) {
+       List<KichThuoc> list = kichThuocRepository.findAll();
+       model.addAttribute("data", list);
+       return "kich_thuoc/index";
+   }
 
     @GetMapping ("/create")
-    public String create(@ModelAttribute("data") KichThuoc kichThuoc) {
+    public String create() {
         return "kich_thuoc/create";
     }
 
     @PostMapping("/store")
-    public String store(Model model, @Valid KichThuoc kichThuoc,
-                        BindingResult validate) {
-        if (validate.hasErrors() ) {
-            Map<String, String> errors = new HashMap<String, String>();
-            for(FieldError e: validate.getFieldErrors()) {
-                errors.put(e.getField(), e.getDefaultMessage());
-            }
-            model.addAttribute("errors", errors);
-            model.addAttribute("data", kichThuoc);
-            return "kich_thuoc/create";
-        }
-        this.kichThuocRepository.create(kichThuoc);
-        return "redirect:/kich-thuoc/create";
+    public String store(KichThuoc kichThuoc) {
+        this.kichThuocRepository.save(kichThuoc);
+        return "redirect:/kich-thuoc/index";
     }
 
     @GetMapping("/delete/{id}")
@@ -67,25 +52,16 @@ public class KichThuocController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model,
                        @ModelAttribute("data") KichThuoc kt) {
-        KichThuoc kichThuoc = this.kichThuocRepository.findById(id);
+        KichThuoc kichThuoc = this.kichThuocRepository.findById(id).get();
         model.addAttribute("data", kichThuoc);
         return "kich_thuoc/edit";
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable("id") Integer id,Model model,
-                         @Valid KichThuoc kichThuoc, BindingResult validate) {
-        if (validate.hasErrors() ) {
-            Map<String, String> errors = new HashMap<String, String>();
-            for(FieldError e: validate.getFieldErrors()) {
-                errors.put(e.getField(), e.getDefaultMessage());
-            }
-            model.addAttribute("data", kichThuoc);
-            model.addAttribute("errors", errors);
-
-            return "kich_thuoc/edit";
-        }
-        this.kichThuocRepository.update( kichThuoc);
+    public String update(KichThuoc kichThuoc){
+        this.kichThuocRepository.save( kichThuoc);
         return "redirect:/kich-thuoc/index";
     }
+
+
 }

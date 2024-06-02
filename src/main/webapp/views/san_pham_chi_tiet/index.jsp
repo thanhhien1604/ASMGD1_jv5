@@ -19,19 +19,21 @@
 
         <div class="col-sm-10">
             <h1>Quan ly san pham chi tiet</h1>
-            <a href=""><button class="btn btn-success">Them</button></a>
-            <div class="col-md-3">
-                <form method="get" action="/san-pham-chi-tiet/index" name="SPCT">
-                    <label>Chọn Sản Phẩm:</label>
-                    <select class="form-select" name="idSanPham">
-                        <c:forEach var="spct" items="${dataSP}">
-                            <option value="${spct.id}">${spct.ten}</option>
-                        </c:forEach>
-                    </select>
-                    <button type="submit" class="btn btn-success">Tìm</button>
-                </form>
+            <a href="/san-pham-chi-tiet/create"><button class="btn btn-success">Them</button></a>
 
-            </div>
+
+<%--            <div class="col-md-3">--%>
+<%--                <form method="get" action="/san-pham-chi-tiet/index" name="SPCT">--%>
+<%--                    <label>Chọn Sản Phẩm:</label>--%>
+<%--                    <select class="form-select" name="idSanPham">--%>
+<%--                        <c:forEach var="spct" items="${dataSP}">--%>
+<%--                            <option value="${spct.id}">${spct.sanPham.ten}</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                    <button type="submit" class="btn btn-success">Tìm</button>--%>
+<%--                </form>--%>
+
+<%--            </div>--%>
 
             <table class="table">
                 <thead>
@@ -52,9 +54,9 @@
                         <td>${i.index + 1}</td>
                         <td>${item.id}</td>
                         <td>${item.maSPCT}</td>
-                        <td>${tenMauSac[item.idMauSac]}</td>
-                        <td>${tenKichThuoc[item.idKichThuoc]}</td>
-                        <td>${tenSanPham[item.idSanPham]}</td>
+                        <td>${item.mauSac.ten}</td>
+                        <td>${item.kichThuoc.ten}</td>
+                        <td>${item.sanPham.ten}</td>
                         <td>${item.soLuong}</td>
                         <td>${item.donGia}</td>
                         <td>${item.trangThai == 1 ? "Đang hoạt động" : "Ngừng hoạt động"}</td>

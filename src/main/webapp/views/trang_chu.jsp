@@ -18,7 +18,12 @@
         </div>
 
         <div class="col-sm-10">
-         <div>Quuyen :${sessionScope.quyen}</div>
+            <div>
+                Quuyen :${sessionScope.quyen}
+            </div>
+            <div>
+<%--                <jsp:include page="../views/ban_hang.jsp"></jsp:include>--%>
+            </div>
         </div>
     </div>
     <div>

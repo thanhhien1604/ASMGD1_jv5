@@ -9,6 +9,9 @@
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <li class="nav-item">
+                    <a class="nav-link" href="/banhang">Bán hàng</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/san-pham/index">San Pham</a>
                 </li>
                 <li class="nav-item">

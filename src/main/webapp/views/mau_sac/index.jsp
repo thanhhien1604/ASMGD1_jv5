@@ -20,11 +20,11 @@
         <div class="col-sm-10">
             <h1>Quan ly mau sac</h1>
 
-            <form action="/mau-sac/index" method="get">
-                <input type="text" name="keyword" placeholder="Nhập từ khóa">
-                <select name="trangThai">
-                    <option value="0">Dang hoat dong</option>
-                    <option value="1">Ngưng hoat dong</option>
+            <form action="/mau-sac/tim-kiem" method="post">
+                <input value="${valueSearch}" type="text" name="valueSearch" placeholder="Nhập từ khóa">
+                <select name="searchStatus">
+                    <option <c:if test="${searchStatus eq 1}">selected</c:if> value="1">Dang hoat dong</option>
+                    <option <c:if test="${searchStatus eq 0}">selected</c:if>  value="0">Ngưng hoat dong</option>
                 </select>
                 <button type="submit" class="btn btn-light">Tìm kiếm</button>
             </form>

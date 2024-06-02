@@ -6,9 +6,10 @@
 <html>
 <body>
 
-<h1>
-    Khong co quyen truy cap
-    <a href="/login">Back Login</a>
-</h1>
+<h1> Khong co quyen truy cap </h1>
+<a href="/index"> </a>
+<span>You can click -></span>
+<a href="/login"> Login</a>
+
 </body>
 </html>
