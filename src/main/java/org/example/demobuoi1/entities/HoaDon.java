@@ -25,10 +25,10 @@ public class HoaDon {
     private Integer id;
 
     @NotBlank(message = "ngay mua hang is required")
-    @Column(name = "ngayMuaHang")
+    @Column(name = "NgayMuaHang")
     private Date ngayMuaHang;
     @Digits(integer = 0, fraction = 1)
-    @Column(name = "trangThai")
+    @Column(name = "TrangThai")
     private int trangThai;
 
     @ManyToOne(cascade = {
@@ -37,7 +37,7 @@ public class HoaDon {
             CascadeType.PERSIST,
             CascadeType.REFRESH
     })
-    @JoinColumn(name = "idNV")
+    @JoinColumn(name = "IdNV")
     private NhanVien nhanVien;
 
     @ManyToOne(cascade = {
@@ -46,7 +46,7 @@ public class HoaDon {
             CascadeType.PERSIST,
             CascadeType.REFRESH
     })
-    @JoinColumn(name = "idKH")
+    @JoinColumn(name = "IdKH")
     private KhachHang khachHang;
 
 

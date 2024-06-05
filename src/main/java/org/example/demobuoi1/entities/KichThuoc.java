@@ -29,7 +29,7 @@ public class KichThuoc {
     @Column(name = "Ten")
     private String ten;
     @Digits(integer = 1, fraction = 0)
-    @Column(name = "trangThai")
+    @Column(name = "TrangThai")
     private int trangThai;
 
 

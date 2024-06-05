@@ -26,9 +26,15 @@ public class MauSacController {
     MauSacRepository2 mauSacRepository;
 
     @GetMapping("/index")
-    public String index(Model model) {
-        List<MauSac> list = mauSacRepository.findAll();
-        model.addAttribute("data", list);
+    public String index(Model model,
+                        @RequestParam(value = "page", defaultValue = "1") int pageNumber,
+                        @RequestParam(value = "limit", defaultValue = "5") int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<MauSac> pageMauSac = mauSacRepository.findAll(pageable);
+        model.addAttribute("data", pageMauSac);
+        int totalPages = pageMauSac.getTotalPages();
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage",pageNumber);
         return "mau_sac/index";
     }
 
@@ -38,8 +44,11 @@ public class MauSacController {
     }
 
     @PostMapping("/store")
-    public String store( MauSac mauSac) {
-
+    public String store(@Valid MauSac mauSac, BindingResult bindingResult, Model model) {
+    if(bindingResult.hasErrors()) {
+        model.addAttribute("errors", getErrorMessages(bindingResult));
+        return "mau_sac/create";
+    }
         this.mauSacRepository.save(mauSac);
         return "redirect:/mau-sac/index";
     }
@@ -62,31 +71,28 @@ public class MauSacController {
         this.mauSacRepository.save(mauSac);
         return "redirect:/mau-sac/index";
     }
+    public  static Map<String , String> getErrorMessages(BindingResult bindingResult){
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+        return errors;
+    }
 
-//    @PostMapping("/update/{id}")
-//    public String update(@PathVariable("id") Integer id,
-//                         Model model, @Valid MauSac mauSac, BindingResult validate) {
-//        if (validate.hasErrors()) {
-//            Map<String,String> errors = new HashMap<String,String>();
-//            for(FieldError e : validate.getFieldErrors()) {
-//                errors.put(e.getField(),e.getDefaultMessage());
-//            }
-//            model.addAttribute("errors",errors);
-//            model.addAttribute("data",mauSac);
-//
-//            return "mau_sac/edit";
-//        }
-//        this.mauSacRepository.save( mauSac);
-//        return "redirect:/mau-sac/index";
-//    }
 
-//    @PostMapping("/tim-kiem")
-//    public String timKiem(Model model, @RequestParam(required = false) String valueSearch, @RequestParam(required = false) Integer searchStatus) {
-//        List<MauSac> list= mauSacRepository.findByMaVaStatus(valueSearch, searchStatus);
-//        model.addAttribute("data", list);
-//        model.addAttribute("searchStatus", searchStatus);
-//        model.addAttribute("valueSearch", valueSearch);
-//        return "mau_sac/index";
-//
-//    }
+    @GetMapping("/tim-kiem")
+    public String timKiem(Model model, @RequestParam(required = false , defaultValue = "") String valueSearch,
+                          @RequestParam(value = "page", defaultValue = "0") int page,
+                          @RequestParam(value = "size", defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MauSac> list= mauSacRepository.findByTenContainingIgnoreCase(valueSearch.trim() , pageable);
+        model.addAttribute("data", list);
+
+        int totalPages = list.getTotalPages();
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage",page);
+        model.addAttribute("valueSearch",valueSearch);
+        model.addAttribute("isSearching", !valueSearch.isEmpty());
+        return "mau_sac/index";
+    }
 }

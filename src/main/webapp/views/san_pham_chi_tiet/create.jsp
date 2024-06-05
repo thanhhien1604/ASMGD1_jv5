@@ -19,9 +19,9 @@
         <div class="mb-3">
             <label class="form-label">Ma SPCT</label>
             <input type="text" class="form-control" name="maSPCT" value="${data.maSPCT}">
-            <%--            <c:if test="${not empty errors['ma']}">--%>
-            <%--                <small style="color: red">${errors['ma']}</small>--%>
-            <%--            </c:if>--%>
+                        <c:if test="${not empty errors['maSPCT']}">
+                            <small style="color: red">${errors['maSPCT']}</small>
+                        </c:if>
         </div>
         <div class="mb-3">
             <label class="form-label">San Pham</label>
@@ -36,7 +36,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label"> kich thuoc</label>
-            <select class="form-select" name="kichThuoc">
+            <select class="form-select" name="kichThuoc"  >
                 <c:forEach items="${listKichThuoc}" var="kichThuoc">
                     <option value="${kichThuoc.id}">${kichThuoc.ten}</option>
                 </c:forEach>
@@ -59,16 +59,16 @@
         <div class="mb-3">
             <label class="form-label">So luong</label>
             <input class="form-control" type="text" name="soLuong" value="${data.soLuong}">
-            <%--            <c:if test="${not empty errors['ten']}">--%>
-            <%--                <small style="color: red">${errors['ten']}</small>--%>
-            <%--            </c:if>--%>
+                        <c:if test="${not empty errors['soLuong']}">
+                            <small style="color: red">${errors['soLuong']}</small>
+                        </c:if>
         </div>
         <div class="mb-3">
             <label class="form-label">Don gia</label>
             <input class="form-control" type="text" name="donGia" value="${data.donGia}">
-            <%--            <c:if test="${not empty errors['ten']}">--%>
-            <%--                <small style="color: red">${errors['ten']}</small>--%>
-            <%--            </c:if>--%>
+                        <c:if test="${not empty errors['donGia']}">
+                            <small style="color: red">${errors['donGia']}</small>
+                        </c:if>
         </div>
         <div class="mb-3">
             <label>Trang thai</label>

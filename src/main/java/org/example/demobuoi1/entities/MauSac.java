@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "MauSac")
+@Table(name = "MauSac" , indexes = @Index(name = "idx_MauSac_ten" , columnList = "Ten"))
 @Entity
 public class MauSac {
     @Id
@@ -26,6 +26,7 @@ public class MauSac {
     @Column(name = "Ma")
     private String ma;
     @NotBlank(message = "ten is required")
+
     @Column(name = "Ten")
     private String ten;
     @Digits(integer = 1, fraction = 0)

@@ -10,6 +10,7 @@
         crossorigin="anonymous"></script>
 
 <head>
+
 </head>
 <body>
 <h1 class="text-center">Quản Lý Sản Phẩm</h1>
@@ -24,9 +25,9 @@
         </div>
         <div class="mb-3">
             <label class="form-label">San Pham</label>
-            <select class="form-select" name="idSanPham">
+            <select class="form-select" name="sanPham">
                 <c:forEach items="${dataSP}" var="sanPham">
-                    <option value="${sanPham.id}" <c:if test="${data.idSanPham == sanPham.id ? 'selected':''}"></c:if> >${sanPham.ten}</option>
+                    <option value="${sanPham.id}">${sanPham.ten}</option>
                 </c:forEach>
             </select>
             <%--            <c:if test="${not empty errors['ten']}">--%>
@@ -35,9 +36,9 @@
         </div>
         <div class="mb-3">
             <label class="form-label"> kich thuoc</label>
-            <select class="form-select" name="idKichThuoc">
+            <select class="form-select" name="kichThuoc">
                 <c:forEach items="${listKichThuoc}" var="kichThuoc">
-                    <option value="${kichThuoc.id}" <c:if test="${data.idKichThuoc == kichThuoc.id ? 'selected':''}"></c:if>>${kichThuoc.ten}</option>
+                    <option value="${kichThuoc.id}">${kichThuoc.ten}</option>
                 </c:forEach>
             </select>
             <%--            <c:if test="${not empty errors['ten']}">--%>
@@ -46,9 +47,9 @@
         </div>
         <div class="mb-3">
             <label class="form-label"> mau sac</label>
-            <select class="form-select" name="idMauSac">
+            <select class="form-select" name="mauSac">
                 <c:forEach items="${listMauSac}" var="mauSac">
-                    <option value="${mauSac.id}" <c:if test="${data.idMauSac == mauSac.id ? 'selected':''}"></c:if>>${mauSac.ten}</option>
+                    <option value="${mauSac.id}">${mauSac.ten}</option>
                 </c:forEach>
             </select>
             <%--            <c:if test="${not empty errors['ten']}">--%>
@@ -77,7 +78,7 @@
             </select>
         </div>
         <div class="mb-3">
-            <button class="btn btn-info">Sua</button>
+            <button class="btn btn-info">Lưu</button>
         </div>
     </form>
 </div>

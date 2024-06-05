@@ -9,18 +9,18 @@
 <body>
 <h1 class="text-center">Quản Lý Hoa Don</h1>
 <div class="container">
-    <form action="/hoa-don/update/${data.id}" method="post">
+    <form action="/hoa-don/update/${id}" method="post">
         <div class="mb-3">
             <label class="form-label">Ten nhan vien</label>
-            <input type="text" class="form-control" name="tenNV" value="${nhanVien.ten}">
+            <input type="text" class="form-control" name="nhanVien" value="${data.nhanVien.ten}">
         </div>
         <div class="mb-3">
             <label class="form-label">Ten khach hang</label>
-            <input type="text" class="form-control" name="tenKH" value="${khachHang.ten}" readonly>
+            <input type="text" class="form-control" name="khachHang" value="${data.khachHang.ten}" readonly >
         </div>
         <div class="mb-3">
             <label class="form-label">Ngay mua hang</label>
-            <input type="text" class="form-control" name="ngayMuaHang" value="${data.ngayMuaHang}" >
+            <input type="text" class="form-control" name="ngayMuaHang" value="${data.ngayMuaHang}" readonly>
         </div>
         <div class="mb-3">
             <label>Trang thai</label>

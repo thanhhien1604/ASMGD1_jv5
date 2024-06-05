@@ -35,7 +35,7 @@ public class KhachHang {
     @Column(name = "Sdt")
     private String sdt;
     @Digits(integer = 1, fraction = 0)
-    @Column(name = "trangThai")
+    @Column(name = "TrangThai")
     private int trangThai;
 
     @OneToMany(mappedBy = "khachHang" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)

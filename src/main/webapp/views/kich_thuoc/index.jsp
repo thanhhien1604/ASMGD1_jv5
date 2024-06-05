@@ -20,12 +20,12 @@
         <div class="col-sm-10">
             <h1>Quan ly kich thuoc</h1>
 
-            <form action="/kich-thuoc/tim-kiem" method="post">
+            <form action="/kich-thuoc/tim-kiem" method="get">
                 <input value="${valueSearch}" type="text" name="valueSearch" placeholder="Nhập từ khóa">
-                <select name="searchStatus">
-                    <option <c:if test="${searchStatus eq 1}">selected</c:if> value="1">Dang hoat dong</option>
-                    <option <c:if test="${searchStatus eq 0}">selected</c:if>  value="0">Ngưng hoat dong</option>
-                </select>
+<%--                <select name="searchStatus">--%>
+<%--                    <option <c:if test="${searchStatus eq 1}">selected</c:if> value="1">Dang hoat dong</option>--%>
+<%--                    <option <c:if test="${searchStatus eq 0}">selected</c:if>  value="0">Ngưng hoat dong</option>--%>
+<%--                </select>--%>
                 <button type="submit" class="btn btn-light">Tìm kiếm</button>
             </form>
             <a href="/kich-thuoc/create">
@@ -41,7 +41,7 @@
                 <th>Hanh động</th>
                 </thead>
                 <tbody>
-                <c:forEach varStatus="i" var="item" items="${data}">
+                <c:forEach varStatus="i" var="item" items="${data.content}">
                     <tr>
                         <td>${i.index + 1}</td>
                         <td>${item.id}</td>
@@ -63,37 +63,110 @@
             </table>
         </div>
     </div>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <c:if test="${totalPages > 0}">
-                <c:if test="${currentPage > 0}">
-                    <li class="page-item">
-                        <a class="page-link" href="?page=${currentPage - 1}"><<</a>
-                    </li>
-                </c:if>
-                <c:if test="${currentPage <= 0}">
-                    <li class="page-item disabled">
-                        <span class="page-link"><<</span>
-                    </li>
-                </c:if>
-                <c:forEach var="i" begin="0" end="${totalPages - 1}">
-                    <li class="page-item <c:if test="${currentPage == i}">active</c:if>">
-                        <a class="page-link" href="?page=${i}">${i + 1}</a>
-                    </li>
-                </c:forEach>
-                <c:if test="${currentPage < totalPages - 1}">
-                    <li class="page-item">
-                        <a class="page-link"  href="?page=${currentPage + 1}">>></a>
-                    </li>
-                </c:if>
-                <c:if test="${currentPage == totalPages - 1}">
-                    <li class="page-item">
-                        <a class="page-link"  href="?page=0">>></a>
-                    </li>
-                </c:if>
-            </c:if>
-        </ul>
-    </nav>
+    <c:choose>
+        <c:when test="${isSearching}">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <c:if test="${totalPages > 0}">
+                        <c:if test="${currentPage > 0}">
+                            <li class="page-item">
+                                <a class="page-link" href="/kich-thuoc/tim-kiem?valueSearch=${valueSearch}&page=${currentPage - 1}">&lt;&lt;</a>
+                            </li>
+                        </c:if>
+
+                        <c:if test="${currentPage <= 0}">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">&lt;&lt;</a>
+                            </li>
+                        </c:if>
+
+                        <c:forEach var="i" begin="0" end="${totalPages - 1}">
+                            <li class="page-item <c:if test="${currentPage == i}">active</c:if>">
+                                <a class="page-link" href="/kich-thuoc/tim-kiem?valueSearch=${valueSearch}&page=${i}">${i + 1}</a>
+                            </li>
+                        </c:forEach>
+
+                        <c:if test="${currentPage < totalPages - 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="/kich-thuoc/tim-kiem?valueSearch=${valueSearch}&page=${currentPage + 1}">&gt;&gt;</a>
+                            </li>
+                        </c:if>
+
+                        <c:if test="${currentPage >= totalPages - 1}">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">&gt;&gt;</a>
+                            </li>
+                        </c:if>
+                    </c:if>
+                </ul>
+            </nav>
+        </c:when>
+        <c:otherwise>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <c:if test="${totalPages > 0}">
+                        <c:if test="${currentPage > 0}">
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${currentPage }"><<</a>
+                            </li>
+                        </c:if>
+                        <c:if test="${currentPage <= 0}">
+                            <li class="page-item disabled">
+                                <span class="page-link"><<</span>
+                            </li>
+                        </c:if>
+
+                        <!-- Logic for displaying page numbers with "..." -->
+                        <c:choose>
+                            <c:when test="${totalPages <= 5}">
+                                <c:forEach var="i" begin="0" end="${totalPages - 1}">
+                                    <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                        <a class="page-link" href="?page=${i}">${i + 1}</a>
+                                    </li>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item ${currentPage == 0 ? 'active' : ''}">
+                                    <a class="page-link" href="?page=0">1</a>
+                                </li>
+                                <c:if test="${currentPage > 2}">
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                </c:if>
+                                <c:forEach var="i" begin="${currentPage }" end="${currentPage + 1}">
+                                    <c:if test="${i > 0 && i < totalPages - 1}">
+                                        <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                            <a class="page-link" href="?page=${i}">${i + 1}</a>
+                                        </li>
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${currentPage < totalPages - 3}">
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                </c:if>
+                                <li class="page-item ${currentPage == totalPages - 1 ? 'active' : ''}">
+                                    <a class="page-link" href="?page=${totalPages - 1}">${totalPages}</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:if test="${currentPage < totalPages - 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${currentPage + 1}">>></a>
+                            </li>
+                        </c:if>
+                        <c:if test="${currentPage >= totalPages - 1}">
+                            <li class="page-item disabled">
+                                <span class="page-link">>></span>
+                            </li>
+                        </c:if>
+                    </c:if>
+                </ul>
+            </nav>
+        </c:otherwise>
+    </c:choose>
     <div>
         <jsp:include page="../../views/footer.jsp"></jsp:include>
     </div>

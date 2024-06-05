@@ -22,18 +22,18 @@
             <a href="/san-pham-chi-tiet/create"><button class="btn btn-success">Them</button></a>
 
 
-<%--            <div class="col-md-3">--%>
-<%--                <form method="get" action="/san-pham-chi-tiet/index" name="SPCT">--%>
-<%--                    <label>Chọn Sản Phẩm:</label>--%>
-<%--                    <select class="form-select" name="idSanPham">--%>
-<%--                        <c:forEach var="spct" items="${dataSP}">--%>
-<%--                            <option value="${spct.id}">${spct.sanPham.ten}</option>--%>
-<%--                        </c:forEach>--%>
-<%--                    </select>--%>
-<%--                    <button type="submit" class="btn btn-success">Tìm</button>--%>
-<%--                </form>--%>
+            <div class="col-md-3">
+                <form method="get" action="/san-pham-chi-tiet/index" name="SPCT">
+                    <label>Chọn Sản Phẩm:</label>
+                    <select class="form-select" name="sanPham">
+                        <c:forEach var="spct" items="${data.content}">
+                            <option value="${spct.id}">${spct.sanPham.ten}</option>
+                        </c:forEach>
+                    </select>
+                    <button type="submit" class="btn btn-success">Tìm</button>
+                </form>
 
-<%--            </div>--%>
+            </div>
 
             <table class="table">
                 <thead>
@@ -49,7 +49,7 @@
                 <th>Hanh động</th>
                 </thead>
                 <tbody>
-                <c:forEach varStatus="i" var="item" items="${data}">
+                <c:forEach varStatus="i" var="item" items="${data.content}">
                     <tr>
                         <td>${i.index + 1}</td>
                         <td>${item.id}</td>
@@ -78,29 +78,61 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <c:if test="${totalPages > 0}">
-                <c:if test="${currentPage > 0}">
+                <c:if test="${currentPage > 1}">
                     <li class="page-item">
                         <a class="page-link" href="?page=${currentPage - 1}"><<</a>
                     </li>
                 </c:if>
-                <c:if test="${currentPage <= 0}">
+                <c:if test="${currentPage <= 1}">
                     <li class="page-item disabled">
                         <span class="page-link"><<</span>
                     </li>
                 </c:if>
-                <c:forEach var="i" begin="0" end="${totalPages - 1}">
-                    <li class="page-item <c:if test="${currentPage == i}">active</c:if>">
-                        <a class="page-link" href="?page=${i}">${i + 1}</a>
-                    </li>
-                </c:forEach>
-                <c:if test="${currentPage < totalPages - 1}">
+
+                <!-- Logic for displaying page numbers with "..." -->
+                <c:choose>
+                    <c:when test="${totalPages <= 5}">
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                <a class="page-link" href="?page=${i}">${i}</a>
+                            </li>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item ${currentPage == 1 ? 'active' : ''}">
+                            <a class="page-link" href="?page=1">1</a>
+                        </li>
+                        <c:if test="${currentPage > 3}">
+                            <li class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </li>
+                        </c:if>
+                        <c:forEach var="i" begin="${currentPage - 1}" end="${currentPage + 1}">
+                            <c:if test="${i > 1 && i < totalPages}">
+                                <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                    <a class="page-link" href="?page=${i}">${i}</a>
+                                </li>
+                            </c:if>
+                        </c:forEach>
+                        <c:if test="${currentPage < totalPages - 2}">
+                            <li class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </li>
+                        </c:if>
+                        <li class="page-item ${currentPage == totalPages ? 'active' : ''}">
+                            <a class="page-link" href="?page=${totalPages}">${totalPages}</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+
+                <c:if test="${currentPage < totalPages}">
                     <li class="page-item">
-                        <a class="page-link"  href="?page=${currentPage + 1}">>></a>
+                        <a class="page-link" href="?page=${currentPage + 1}">>></a>
                     </li>
                 </c:if>
-                <c:if test="${currentPage == totalPages - 1}">
-                    <li class="page-item">
-                        <a class="page-link"  href="?page=0">>></a>
+                <c:if test="${currentPage == totalPages}">
+                    <li class="page-item disabled">
+                        <span class="page-link">>></span>
                     </li>
                 </c:if>
             </c:if>

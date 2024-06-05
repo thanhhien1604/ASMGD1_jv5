@@ -1,6 +1,10 @@
 package org.example.demobuoi1.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,13 +25,18 @@ public class SanPhamChiTiet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "maSPCT")
+    @NotBlank(message = "maSPCT is required")
+    @Column(name = "MaSPCT")
     private String maSPCT;
-    @Column(name = "soLuong")
+    @NotNull(message = "so luong khong duoc de trong")
+    @Min(value =1, message = "soluong >0")
+    @Column(name = "SoLuong")
     private Integer soLuong;
-    @Column(name = "donGia")
+    @NotNull(message = "don gia is required")
+    @Positive(message = "don gia la so duong")
+    @Column(name = "DonGia")
     private Float donGia;
-    @Column(name = "trangThai")
+    @Column(name = "TrangThai")
     private int trangThai;
 
     @ManyToOne(cascade = {
@@ -36,7 +45,7 @@ public class SanPhamChiTiet {
             CascadeType.PERSIST,
             CascadeType.REFRESH
     })
-    @JoinColumn(name = "idSanPham")
+    @JoinColumn(name = "IdSanPham")
     private SanPham sanPham;
 
     @ManyToOne(cascade = {
@@ -45,7 +54,7 @@ public class SanPhamChiTiet {
             CascadeType.PERSIST,
             CascadeType.REFRESH
     })
-    @JoinColumn(name = "idMauSac")
+    @JoinColumn(name = "IdMauSac")
     private MauSac mauSac;
 
     @ManyToOne(cascade = {
@@ -54,7 +63,7 @@ public class SanPhamChiTiet {
             CascadeType.PERSIST,
             CascadeType.REFRESH
     })
-    @JoinColumn(name = "idKichThuoc")
+    @JoinColumn(name = "IdKichThuoc")
     private KichThuoc kichThuoc;
 
     @OneToMany(mappedBy = "sanPhamChiTiet" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -16,11 +16,11 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Ten khach hang</label>
-            <input type="text" class="form-control" name="tenKH" value="${khachHang.ten}" readonly>
+            <input type="text" class="form-control" name="tenKH" value="${khachHang.ten}" disabled>
         </div>
         <div class="mb-3">
             <label class="form-label">Ngay mua hang</label>
-            <input type="text" class="form-control" name="ngayMuaHang" value="${data.ngayMuaHang}" >
+            <input type="text" class="form-control" name="ngayMuaHang" value="${data.ngayMuaHang}" disabled >
         </div>
         <div class="mb-3">
             <label>Trang thai</label>

@@ -45,7 +45,7 @@ public class HoaDonChiTiet {
             CascadeType.REFRESH
     })
 
-    @JoinColumn(name = "idSPCT")
+    @JoinColumn(name = "IdSPCT")
     private SanPhamChiTiet sanPhamChiTiet;
 
     @ManyToOne(cascade = {
@@ -55,7 +55,7 @@ public class HoaDonChiTiet {
             CascadeType.REFRESH
     })
 
-    @JoinColumn(name = "idHoaDon")
+    @JoinColumn(name = "IdHoaDon",insertable=false, updatable=false)
     private HoaDon hoaDon;
 
 }

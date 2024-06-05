@@ -6,7 +6,7 @@
 <head></head>
 <body>
 <h1>Quan ly san pham</h1>
-<form method="POST" action="/kich-thuoc/update/${data.id}">
+<form method="POST" action="/kich-thuoc/update/${id}">
 
     <div class="mb-3">
         <label>Mã</label>

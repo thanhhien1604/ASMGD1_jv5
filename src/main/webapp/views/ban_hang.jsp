@@ -27,8 +27,8 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <div class="mt-5">
-                                <form action="/banhang" method="post">
-                                    <button type="button" class="btn btn-outline-info">Tạo hóa đơn</button>
+                                <form action="/taoHoaDon" method="post">
+                                    <button type="submit" class="btn btn-outline-info">Tạo hóa đơn</button>
                                 </form>
 
                             </div>
@@ -101,9 +101,9 @@
                                         <tr>
                                             <td>${item.id}</td>
                                             <td>${item.maSPCT}</td>
-                                            <td>${tenMauSac[item.idMauSac]}</td>
-                                            <td>${tenKichThuoc[item.idKichThuoc]}</td>
-                                            <td>${tenSanPham[item.idSanPham]}</td>
+                                            <td>${item.mauSac.ten}</td>
+                                            <td>${item.kichThuoc.ten}</td>
+                                            <td>${item.sanPham.ten}</td>
                                             <td>${item.soLuong}</td>
                                             <td>${item.donGia}</td>
                                         </tr>
